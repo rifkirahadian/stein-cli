@@ -3,7 +3,7 @@ require('dotenv').config();
 const express       = require('express');
 const app           = express();
 const bodyParser    = require('body-parser');
-const { getAllByRange, getById, getByArea, getAllByPriceRange } = require('./controllers/FishController');
+const { getAllByRange, getById, getByArea, getAllByPriceRange, getAllBySizeRange, getAllByDateRange } = require('./controllers/FishController');
 
 app.use(bodyParser.json());
 
@@ -12,7 +12,7 @@ const apiRoutes = express.Router()
 
 app.use('/api', apiRoutes)
 
-getAllByPriceRange(100, 2000).then(data => {
+getAllByDateRange('2022-01-01', '2022-02-28').then(data => {
   console.log(data)
 })
 

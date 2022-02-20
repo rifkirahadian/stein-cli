@@ -1,3 +1,4 @@
+const { DateTime } = require("luxon");
 const { getFishes } = require("../modules/Fish");
 
 exports.getAllByCommodity = (comodity) => {
@@ -33,6 +34,29 @@ exports.getAllBySizeRange = async(min, max) => {
       const { size } = item
       if (size) {
         if ((parseInt(size) >= min) && (parseInt(size) <= max)) {
+          selectedFish.push(item)
+        }
+      }
+    })
+
+    return selectedFish
+  })
+
+  return fish
+}
+
+exports.getAllByDateRange = async(min, max) => {
+  const fish = getFishes({}, { limit: null }).then(data => {
+    const selectedFish = []
+    const minDate = DateTime.fromSQL(`${min} 00:00:00`)
+    const maxDate = DateTime.fromSQL(`${max} 23:59:59`)
+
+    data.forEach(item => {
+      const { tgl_parsed } = item
+      if (tgl_parsed) {
+        const dateParsed = DateTime.fromISO(tgl_parsed)
+
+        if ((dateParsed >= minDate) && (dateParsed <= maxDate)) {
           selectedFish.push(item)
         }
       }
