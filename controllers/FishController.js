@@ -115,3 +115,24 @@ exports.getMaxPriceByCommodity = (commodity) => {
 
   return fish
 }
+
+exports.getMaxPriceByWeek = (week) => {
+  const fish = getFishes({ }, { limit: null }).then(data => {
+    let maxPrice = 0
+    
+    data.forEach(item => {
+      const { tgl_parsed, price } = item
+      if (tgl_parsed && price) {
+        const weekNumber = DateTime.fromISO(tgl_parsed).weekNumber
+
+        if ((weekNumber === week) && (parseInt(price) > maxPrice)) {
+          maxPrice = parseInt(price)
+        }
+      }
+    })
+
+    return maxPrice
+  })
+
+  return fish
+}
