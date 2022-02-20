@@ -1,19 +1,26 @@
 const { getFishes } = require("../modules/Fish");
 
-// exports.getAllByRange = async(key= null, value=null) => {
-//   const params = {}
-//   if (key !== null) {
-//     params[key] = value
-//   }
-  
-//   getFishes(params).then(data => {
-//     console.log(data)
-//   })
-// }
-
 exports.getAllByCommodity = (comodity) => {
   const fish = getFishes({ comodity }).then(data => {
     return data
+  })
+
+  return fish
+}
+
+exports.getAllByPriceRange = async(min, max) => {
+  const fish = getFishes({}, { limit: null }).then(data => {
+    const selectedFish = []
+    data.forEach(item => {
+      const { price } = item
+      if (price) {
+        if ((parseInt(price) >= min) && (parseInt(price) <= max)) {
+          selectedFish.push(item)
+        }
+      }
+    })
+
+    return selectedFish
   })
 
   return fish
