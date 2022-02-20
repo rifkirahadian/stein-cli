@@ -96,3 +96,22 @@ exports.getByArea = (type, area) => {
 
   return fish
 }
+
+exports.getMaxPriceByCommodity = (commodity) => {
+  const fish = getFishes({ komoditas: commodity }, { limit: null }).then(data => {
+    let maxPrice = 0
+    
+    data.forEach(item => {
+      const { price } = item
+      if (price) {
+        if (parseInt(price) > maxPrice) {
+          maxPrice = parseInt(price)
+        }
+      }
+    })
+
+    return maxPrice
+  })
+
+  return fish
+}
