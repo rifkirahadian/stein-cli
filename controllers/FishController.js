@@ -26,3 +26,24 @@ exports.getById = (uuid) => {
 
   return fish
 }
+
+exports.getByArea = (type, area) => {
+  const search = {}
+  switch (type) {
+    case 'city':
+      search['area_kota'] = area
+      break;
+    
+    case 'province':
+      search['area_provinsi'] = area
+      break;
+  
+    default:
+      break;
+  }
+  const fish = getFishes(search, { limit: 1 }).then(data => {
+    return data.length > 0 ? data[0] : null
+  })
+
+  return fish
+}
