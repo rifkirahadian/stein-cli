@@ -26,6 +26,24 @@ exports.getAllByPriceRange = async(min, max) => {
   return fish
 }
 
+exports.getAllBySizeRange = async(min, max) => {
+  const fish = getFishes({}, { limit: null }).then(data => {
+    const selectedFish = []
+    data.forEach(item => {
+      const { size } = item
+      if (size) {
+        if ((parseInt(size) >= min) && (parseInt(size) <= max)) {
+          selectedFish.push(item)
+        }
+      }
+    })
+
+    return selectedFish
+  })
+
+  return fish
+}
+
 exports.getById = (uuid) => {
   const fish = getFishes({ uuid }, { limit: 1 }).then(data => {
     return data.length > 0 ? data[0] : null
