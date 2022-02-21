@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "array-sort": "^1.0.0",
+    "axios": "^0.26.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "luxon": "^2.3.0",
+    "node-cache": "^5.1.2",
     "stein-js-client": "^0.0.2",
     "uuid": "^8.3.2",
     "yargs": "^17.3.1"
