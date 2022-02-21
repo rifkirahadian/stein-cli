@@ -5,7 +5,7 @@ const app           = express();
 const bodyParser    = require('body-parser');
 const { 
   getAllByRange, getById, getByArea, getAllByPriceRange, getAllBySizeRange, getAllByDateRange, 
-  getAllByCommodity, getMaxPriceByCommodity, getMaxPriceByWeek, addRecords, updateRecords, deleteRecords 
+  getAllByCommodity, getMaxPriceByCommodity, getMaxPriceByWeek, addRecords, updateRecords, deleteRecords, getMostRecordsByCommodity 
 } = require('./controllers/FishController');
 const { deleteFish } = require('./modules/Fish');
 
@@ -52,9 +52,13 @@ app.use('/api', apiRoutes)
 //   console.log(response)
 // })
 
-deleteRecords('9fb62217-500b-498a-98b5-e47cb5b6f3d1').then(response => {
-  console.log(response)
-})
+// deleteRecords('9fb62217-500b-498a-98b5-e47cb5b6f3d1').then(response => {
+//   console.log(response)
+// })
+
+// getMostRecordsByCommodity().then(response => {
+//   console.log(response)
+// })
 
 const port = process.env.PORT;
 const server = app.listen(port);

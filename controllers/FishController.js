@@ -253,3 +253,23 @@ exports.deleteRecords = (uuid) => {
 
   return response
 }
+
+exports.getMostRecordsByCommodity = () => {
+  const fish = getFishes({ }, { limit: null }).then(data => {
+    const commodities = {}
+    data.forEach(item => {
+      const { komoditas } = item
+      if (komoditas) {
+        if (!Object.hasOwnProperty.call(commodities, komoditas)) {
+          commodities[komoditas] = 0
+        }
+
+        commodities[komoditas] += 1
+      }
+    })
+
+    return commodities
+  })
+
+  return fish
+}
