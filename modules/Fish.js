@@ -62,14 +62,14 @@ exports.updateFish = (uuid, payload) => {
   return response
 }
 
-exports.fishRequiredValidate = (payload) => {
-  const fish = Fish
-  const notExist = []
-  fish.forEach(item => {
-    if (!Object.hasOwnProperty.call(payload, item)) {
-      notExist.push(item)
-    }
+exports.deleteFish = (uuid) => {
+  const store = new SteinStore(list)
+
+  const response = store.delete('', {
+    search: { uuid }
+  }).then(res => {
+    return res
   })
 
-  return notExist
+  return response
 }

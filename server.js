@@ -5,8 +5,9 @@ const app           = express();
 const bodyParser    = require('body-parser');
 const { 
   getAllByRange, getById, getByArea, getAllByPriceRange, getAllBySizeRange, getAllByDateRange, 
-  getAllByCommodity, getMaxPriceByCommodity, getMaxPriceByWeek, addRecords, updateRecords 
+  getAllByCommodity, getMaxPriceByCommodity, getMaxPriceByWeek, addRecords, updateRecords, deleteRecords 
 } = require('./controllers/FishController');
+const { deleteFish } = require('./modules/Fish');
 
 app.use(bodyParser.json());
 
@@ -41,13 +42,17 @@ app.use('/api', apiRoutes)
 //   console.log(response)
 // })
 
-updateRecords('385eaa89-d7fe-4590-b63c-348b9155dc39' , { 
-  city: 'ACEH KOTA', 
-  size: '30', 
-  parsedDate: '2020-01-01 10:10:10',
-  price: 30000,
-  commodity: 'Arwana'
-}).then(response => {
+// updateRecords('385eaa89-d7fe-4590-b63c-348b9155dc39' , { 
+//   city: 'ACEH KOTA', 
+//   size: '30', 
+//   parsedDate: '2020-01-01 10:10:10',
+//   price: 30000,
+//   commodity: 'Arwana'
+// }).then(response => {
+//   console.log(response)
+// })
+
+deleteRecords('9fb62217-500b-498a-98b5-e47cb5b6f3d1').then(response => {
   console.log(response)
 })
 

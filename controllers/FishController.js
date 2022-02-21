@@ -1,6 +1,6 @@
 const { DateTime } = require("luxon");
 const { v4 } = require("uuid");
-const { getFishes, getAreas, getSizes, addFish, updateFish } = require("../modules/Fish");
+const { getFishes, getAreas, getSizes, addFish, updateFish, deleteFish } = require("../modules/Fish");
 
 exports.getAllByCommodity = (comodity) => {
   const fish = getFishes({ comodity }).then(data => {
@@ -230,6 +230,25 @@ exports.updateRecords = (uuid, payload) => {
     })
 
     return fishUpdate
+  })
+
+  return response
+}
+
+exports.deleteRecords = (uuid) => {
+  const response = getFishes({ uuid }, { limit: 1 }).then(fish => {
+    if (fish.length === 0) {
+      return {
+        success: false,
+        message: 'Fish not found'
+      }
+    }
+
+    const fishDelete = deleteFish(uuid).then(response => {
+      return response
+    })
+
+    return fishDelete
   })
 
   return response
