@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 const yargs = require("yargs");
-const { getAllByCommodity, getByArea } = require("../controllers/FishController");
+const { getAllByCommodity, getByArea, getAllByPriceRange } = require("../controllers/FishController");
 
 if (yargs.argv._.length === 2) {
   switch (yargs.argv._[0]) {
@@ -13,6 +13,13 @@ if (yargs.argv._.length === 2) {
     
     case 'area':
         getByArea(yargs.argv._[1].toUpperCase()).then(response => {
+          console.log(response)
+        })
+      break;
+    
+    case 'price-range':
+        const parsePrice = yargs.argv._[1].split('-')
+        getAllByPriceRange(parsePrice[0], parsePrice[1]).then(response => {
           console.log(response)
         })
       break;
