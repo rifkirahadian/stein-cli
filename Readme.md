@@ -1,6 +1,6 @@
  STEIN CLI
 
-## Build Setup
+## Manual
 
 ```bash
 # install dependencies
