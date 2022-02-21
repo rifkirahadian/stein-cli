@@ -1,6 +1,6 @@
 const { DateTime } = require("luxon");
 const { v4 } = require("uuid");
-const { getFishes, getAreas, getSizes, addFish } = require("../modules/Fish");
+const { getFishes, getAreas, getSizes, addFish, updateFish } = require("../modules/Fish");
 
 exports.getAllByCommodity = (comodity) => {
   const fish = getFishes({ comodity }).then(data => {
@@ -176,6 +176,60 @@ exports.addRecords = (payload) => {
     })
 
     return fish
+  })
+
+  return response
+}
+
+exports.updateRecords = (uuid, payload) => {
+  const { city, size, commodity, price, parsedDate } = payload
+
+  const fish = getFishes({ uuid }, { limit: 1 }).then(data => {
+   return data
+  })
+  
+  const area = getAreas({ city }).then(data => {
+    return data
+  })
+
+  const sizes = getSizes({ size }).then(data => {
+    return data
+  })
+
+  const response = Promise.all([area, sizes, fish]).then(values => {
+    if (values[0].length === 0) {
+      return {
+        success: false,
+        message: 'City not found'
+      }
+    }
+
+    if (values[1].length === 0) {
+      return {
+        success: false,
+        message: 'Size not found'
+      }
+    }
+
+    if (values[2].length === 0) {
+      return {
+        success: false,
+        message: 'Fish not found'
+      }
+    }
+
+    const fishUpdate = updateFish(uuid, {
+      area_provinsi: values[0][0].province,
+      area_kota: values[0][0].city,
+      komoditas: commodity,
+      size: values[1][0].size,
+      price,
+      tgl_parsed: DateTime.fromSQL(parsedDate)
+    }).then(data => {
+      return data
+    })
+
+    return fishUpdate
   })
 
   return response

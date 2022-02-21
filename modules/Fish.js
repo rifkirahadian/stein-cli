@@ -46,6 +46,22 @@ exports.addFish = (payload) => {
   return response
 }
 
+exports.updateFish = (uuid, payload) => {
+  const store = new SteinStore(list)
+
+  const response = store.edit('', {
+    search: { uuid },
+    set: { 
+      ...payload,
+      timestamp: new Date().getTime()
+    }
+  }).then(res => {
+    return res
+  })
+
+  return response
+}
+
 exports.fishRequiredValidate = (payload) => {
   const fish = Fish
   const notExist = []
@@ -56,18 +72,4 @@ exports.fishRequiredValidate = (payload) => {
   })
 
   return notExist
-}
-
-exports.cityAreaValidate = (city) => {
-  store.append("", [
-    {
-      komoditas: "Ikan Cumi",
-      area_provinsi: "Bali",
-      area_kota: "Aceh Kota",
-      size: "40",
-      price: "30000",
-      tgl_parsed: new Date(),
-      timestamp: new Date().getTime()
-    }
-  ])
 }
