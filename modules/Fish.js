@@ -1,5 +1,6 @@
 const SteinStore = require("stein-js-client")
 const Fish = require("../models/Fish")
+const { getUSDValue } = require("../utils/currency")
 const list = "https://stein.efishery.com/v1/storages/5e1edf521073e315924ceab4/list"
 
 exports.getFishes = (search={}, addParams={}) => {
@@ -72,4 +73,16 @@ exports.deleteFish = (uuid) => {
   })
 
   return response
+}
+
+exports.priceConvertedFishes = (list) => {
+  const data = getUSDValue().then(usdValue => {
+    return list.map(item => {
+      item.usd_price = parseInt(item.price) * usdValue
+
+      return item
+    })
+  })
+
+  return data
 }
