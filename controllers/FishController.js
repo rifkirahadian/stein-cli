@@ -275,7 +275,7 @@ exports.getMostRecordsByCommodity = () => {
   return fish
 }
 
-exports.getSortedFish = (limit=10) => {
+exports.getLatestFish = (limit=10) => {
   const fish = getFishes({ }, { limit: null }).then(data => {
     const sortedFish = arraySort(data, 'timestamp')
 

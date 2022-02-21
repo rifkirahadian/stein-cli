@@ -5,7 +5,8 @@ const app           = express();
 const bodyParser    = require('body-parser');
 const { 
   getAllByRange, getById, getByArea, getAllByPriceRange, getAllBySizeRange, getAllByDateRange, 
-  getAllByCommodity, getMaxPriceByCommodity, getMaxPriceByWeek, addRecords, updateRecords, deleteRecords, getMostRecordsByCommodity, getSortedFish 
+  getAllByCommodity, getMaxPriceByCommodity, getMaxPriceByWeek, addRecords, updateRecords,
+  deleteRecords, getMostRecordsByCommodity, getSortedFish 
 } = require('./controllers/FishController');
 const { deleteFish } = require('./modules/Fish');
 const { response } = require('express');

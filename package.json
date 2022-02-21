@@ -9,7 +9,7 @@
   "author": "Rifki",
   "license": "ISC",
   "bin": {
-    "tran": "./server.js"
+    "latest-fish": "./bin/latestFish.js"
   },
   "dependencies": {
     "array-sort": "^1.0.0",
