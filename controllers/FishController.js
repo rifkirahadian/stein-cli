@@ -4,7 +4,7 @@ const { v4 } = require("uuid");
 const { getFishes, getAreas, getSizes, addFish, updateFish, deleteFish } = require("../modules/Fish");
 
 exports.getAllByCommodity = (comodity) => {
-  const fish = getFishes({ comodity }).then(data => {
+  const fish = getFishes({ komoditas: comodity }).then(data => {
     return data
   })
 
@@ -78,7 +78,7 @@ exports.getById = (uuid) => {
   return fish
 }
 
-exports.getByArea = (type, area) => {
+exports.getByArea = (area, type='city') => {
   const search = {}
   switch (type) {
     case 'city':
@@ -92,6 +92,7 @@ exports.getByArea = (type, area) => {
     default:
       break;
   }
+
   const fish = getFishes(search, { limit: 1 }).then(data => {
     return data.length > 0 ? data[0] : null
   })

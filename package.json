@@ -9,7 +9,8 @@
   "author": "Rifki",
   "license": "ISC",
   "bin": {
-    "latest-fish": "./bin/latestFish.js"
+    "latest-fish": "./bin/latestFish.js",
+    "search-fish": "./bin/searchFish.js"
   },
   "dependencies": {
     "array-sort": "^1.0.0",
