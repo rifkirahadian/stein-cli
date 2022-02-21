@@ -1,3 +1,4 @@
+const arraySort = require("array-sort");
 const { DateTime } = require("luxon");
 const { v4 } = require("uuid");
 const { getFishes, getAreas, getSizes, addFish, updateFish, deleteFish } = require("../modules/Fish");
@@ -269,6 +270,20 @@ exports.getMostRecordsByCommodity = () => {
     })
 
     return commodities
+  })
+
+  return fish
+}
+
+exports.getSortedFish = (limit=10) => {
+  const fish = getFishes({ }, { limit: null }).then(data => {
+    const sortedFish = arraySort(data, 'timestamp')
+
+    const limitedFish = sortedFish.filter((_, key) => key <= limit)
+
+    return limitedFish.map(item => {
+      return item
+    })
   })
 
   return fish

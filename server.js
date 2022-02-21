@@ -5,9 +5,10 @@ const app           = express();
 const bodyParser    = require('body-parser');
 const { 
   getAllByRange, getById, getByArea, getAllByPriceRange, getAllBySizeRange, getAllByDateRange, 
-  getAllByCommodity, getMaxPriceByCommodity, getMaxPriceByWeek, addRecords, updateRecords, deleteRecords, getMostRecordsByCommodity 
+  getAllByCommodity, getMaxPriceByCommodity, getMaxPriceByWeek, addRecords, updateRecords, deleteRecords, getMostRecordsByCommodity, getSortedFish 
 } = require('./controllers/FishController');
 const { deleteFish } = require('./modules/Fish');
+const { response } = require('express');
 
 app.use(bodyParser.json());
 
@@ -59,6 +60,10 @@ app.use('/api', apiRoutes)
 // getMostRecordsByCommodity().then(response => {
 //   console.log(response)
 // })
+
+getSortedFish().then(response => {
+  console.log(response)
+})
 
 const port = process.env.PORT;
 const server = app.listen(port);
