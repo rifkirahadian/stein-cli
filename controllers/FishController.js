@@ -1,5 +1,6 @@
 const { DateTime } = require("luxon");
-const { getFishes } = require("../modules/Fish");
+const { v4 } = require("uuid");
+const { getFishes, getAreas, getSizes, addFish } = require("../modules/Fish");
 
 exports.getAllByCommodity = (comodity) => {
   const fish = getFishes({ comodity }).then(data => {
@@ -135,4 +136,47 @@ exports.getMaxPriceByWeek = (week) => {
   })
 
   return fish
+}
+
+exports.addRecords = (payload) => {
+  const { city, size, commodity, price, parsedDate } = payload
+  const area = getAreas({ city }).then(data => {
+    return data
+  })
+
+  const sizes = getSizes({ size }).then(data => {
+    return data
+  })
+
+  const response = Promise.all([area, sizes]).then(values => {
+    if (values[0].length === 0) {
+      return {
+        success: false,
+        message: 'City not found'
+      }
+    }
+
+    if (values[1].length === 0) {
+      return {
+        success: false,
+        message: 'Size not found'
+      }
+    }
+
+    const fish = addFish({
+      uuid: v4(),
+      area_provinsi: values[0][0].province,
+      area_kota: values[0][0].city,
+      komoditas: commodity,
+      size: values[1][0].size,
+      price,
+      tgl_parsed: DateTime.fromSQL(parsedDate)
+    }).then(data => {
+      return data
+    })
+
+    return fish
+  })
+
+  return response
 }
