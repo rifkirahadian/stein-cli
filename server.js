@@ -62,9 +62,9 @@ app.use('/api', apiRoutes)
 //   console.log(response)
 // })
 
-getSortedFish().then(response => {
-  console.log(response)
-})
+// getSortedFish().then(response => {
+//   console.log(response)
+// })
 
 const port = process.env.PORT;
 const server = app.listen(port);
